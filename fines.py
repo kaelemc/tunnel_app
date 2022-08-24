@@ -31,3 +31,23 @@ def read_file(file_path):
             item[1] = item[1].strip("\n")
 
     file_read.close()
+
+
+# function to check the plate of a vehicle from the list
+def check_plate(file_data):
+    if len(file_data) == 1:
+        file_data.append(None)
+        file_data.append(None)
+        file_data.append("No time associated with vehicle")
+        errors.append(file_data)
+    elif len(file_data[0]) <= 6 and file_data[0].isalnum():
+        reg_time.append(file_data)
+    else:
+        file_data.pop(1)
+        file_data.append(None)
+        file_data.append(None)
+        file_data.append("Invalid License Plate")
+        errors.append(file_data)
+
+
+# helper functions
