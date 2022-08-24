@@ -51,3 +51,34 @@ def check_plate(file_data):
 
 
 # helper functions
+# find the time in and time out of any vehicle
+def find_time_in_out(reg_list):
+    new_reg_list = []
+    for i, reg in enumerate(reg_list):
+        plate = reg[0]
+        time_in = reg[1]
+        for x in range(i+1, len(reg_list)):
+            if reg_list[x][0] in plate:
+                if time_in != reg_list[x][1]:
+                    time_out = reg_list[x][1]
+                    break
+                else:
+                    time_out = "00:00:00"
+            else:
+                time_out = "00:00:00"
+        new_reg_list.append([plate, time_in, time_out])
+
+    return new_reg_list
+
+# strip any duplicate entries that could be generated
+# by the find_time_in_out function
+def remove_duplicates(list):
+    new_list = list
+
+    for i, item in enumerate(new_list):
+        for x in range(i+1, len(new_list)):
+            if new_list[x][0] in item[0]:
+                new_list.pop(x)
+                break
+
+    return new_list
